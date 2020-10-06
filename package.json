@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
+  "types": "./typings/index.d.ts",
   "dependencies": {
     "belter": "^1.0.129",
     "bridge-communication": "git+ssh://git@github.com/randlabs/cross-communication.git#develop",
@@ -16,7 +17,9 @@
     "webpack-merge": "^5.1.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack": "webpack",
+    "build:dev": "npm run webpack -- --env.mode development",
+    "build": "npm run webpack -- --env.mode production"
   },
   "repository": {
     "type": "git",
