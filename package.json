@@ -2,8 +2,8 @@
   "name": "wallet-myalgo-js",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
-  "types": "./typings/index.d.ts",
+  "main": "index.js",
+  "types": "./types/index.d.ts",
   "dependencies": {
     "belter": "^1.0.129",
     "bridge-communication": "git+ssh://git@github.com/randlabs/cross-communication.git#develop",
@@ -26,7 +26,7 @@
     "url": "git+https://github.com/randlabs/wallet-myalgo-js.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rand Labs",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/randlabs/wallet-myalgo-js/issues"
