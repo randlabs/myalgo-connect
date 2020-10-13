@@ -5,10 +5,9 @@ const modeConfig = env => require(`./config/webpack.${env}`)(env);
 
 
 module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
-	let url = "https://wallet.mxmauro.duckdns.org:8443/bridge";
-	// let url = "https://wallet.localhost.com:3000";
-	if (mode === "production")
-		url = "https://wallet.myalgo.com";
+	// let url: "https://wallet.mxmauro.duckdns.org:8443/bridge";
+	const url = "https://wallet.myalgo.com"
+
 	return webpackMerge.merge(
 		{
 			mode: mode,
