@@ -11,6 +11,34 @@ module.exports = {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
+	"overrides": [
+		{
+		  "files": [ "**/*.ts" ],
+		  "extends": [
+				"eslint:recommended",
+				"plugin:@typescript-eslint/eslint-recommended",
+				"plugin:@typescript-eslint/recommended"
+		  ],
+		  "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+		  "parser": "@typescript-eslint/parser",
+		  "rules": {
+				"@typescript-eslint/explicit-member-accessibility": "off",
+				"@typescript-eslint/no-explicit-any": "off",
+				"@typescript-eslint/interface-name-prefix": "off",
+				"@typescript-eslint/no-non-null-assertion": "off",
+				"no-useless-constructor": "off",
+				"@typescript-eslint/no-useless-constructor": "error",
+				"@typescript-eslint/indent": [
+					"error",
+					"tab",
+					{
+						"MemberExpression": 0,
+						"SwitchCase": 1
+					}
+				],
+		  },
+		}
+	],
 	"rules": {
 		"accessor-pairs": "error",
 		"array-bracket-newline": [
