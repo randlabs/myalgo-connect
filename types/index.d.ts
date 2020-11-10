@@ -9,8 +9,12 @@ interface SignedTx {
 	blob: Uint8Array;
 }
 
+interface Accounts {
+	address: Address;
+}
+
 declare abstract class MyAlgo {
-	abstract connect(): Promise<Address[]> | Promise<StoredAccount[]>;
+	abstract connect(): Promise<Accounts[]> | Promise<StoredAccount[]>;
 	abstract signTransaction(transaction: AlgorandTxn | AlgorandTxn[], timeout?: number): Promise<SignedTx | SignedTx[]>;
 }
 
@@ -27,7 +31,7 @@ export class MyAlgoWallet extends MyAlgo {
 	 * @param timeout Number of msec to wait the popup response, default value: 1600000 msec.
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(timeout?: number): Promise<Address[]>;
+	connect(timeout?: number): Promise<Accounts[]>;
 
 	/**
 	 * @async
