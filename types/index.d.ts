@@ -16,13 +16,7 @@ interface Accounts {
 interface Options {
 	timeout: number;
 }
-
-declare abstract class MyAlgo {
-	abstract connect(): Promise<Accounts[]> | Promise<StoredAccount[]>;
-	abstract signTransaction(transaction: AlgorandTxn | AlgorandTxn[], timeout?: number): Promise<SignedTx | SignedTx[]>;
-}
-
-export class MyAlgoWallet extends MyAlgo {
+export class MyAlgoWallet {
 
 	/**
 	 * @param frameUrl Override wallet.myalgo.com default frame url.
@@ -35,7 +29,7 @@ export class MyAlgoWallet extends MyAlgo {
 	 * @param options Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(options?: Options): Promise<Accounts[]>;
+	connect(options: Options = { timeout: 1600000 }): Promise<Accounts[]>;
 
 	/**
 	 * @async
@@ -44,7 +38,18 @@ export class MyAlgoWallet extends MyAlgo {
 	 * @param options Operation options
 	 * @returns Returns signed transaction or an array of signed transactions.
 	 */
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
+	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options: Options = { timeout: 1600000 }): Promise<SignedTx | SignedTx[]>;
+
+	/**
+	 * @async
+	 * @description Sign a teal program
+	 * @param logic Teal program
+	 * @param address Signer Address
+	 * @param options Operation options
+	 * @returns Returns signed teal program
+	 */
+	async signLogicSig(logic: Uint8Array, address: Address, options: Options = { timeout: 1600000 }): Promise<Uint8Array>
+
 }
 
 type EventNames = "ACCOUNTS_UPDATE" | "SETTINGS_UPDATE" | "ON_LOCK_WALLET";
@@ -57,10 +62,8 @@ interface StoredAccount {
 	type: string;
 }
 
-export class MyAlgoWalletWithIframe extends MyAlgo {
+export class MyAlgoWalletWithIframe extends MyAlgoWallet {
 	constructor(frameUrl?: string);
-	connect(options?: Options): Promise<StoredAccount[]>;
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
 	onLoad(): Promise<void>;
 	isLocked(): Promise<boolean>;
 	lock(): Promise<void>;
