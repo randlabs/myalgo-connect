@@ -13,6 +13,10 @@ interface Accounts {
 	address: Address;
 }
 
+interface Options {
+	timeout: number;
+}
+
 declare abstract class MyAlgo {
 	abstract connect(): Promise<Accounts[]> | Promise<StoredAccount[]>;
 	abstract signTransaction(transaction: AlgorandTxn | AlgorandTxn[], timeout?: number): Promise<SignedTx | SignedTx[]>;
@@ -28,19 +32,19 @@ export class MyAlgoWallet extends MyAlgo {
 	/**
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
-	 * @param timeout Number of msec to wait the popup response, default value: 1600000 msec.
+	 * @param options Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(timeout?: number): Promise<Accounts[]>;
+	connect(options?: Options): Promise<Accounts[]>;
 
 	/**
 	 * @async
 	 * @description Sign an Algorand Transaction.
 	 * @param transaction Expect a valid Algorand transaction or transaction array.
-	 * @param timeout Number of msec to wait the popup response, default value: 1600000 msec.
+	 * @param options Operation options
 	 * @returns Returns signed transaction or an array of signed transactions.
 	 */
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], timeout?: number): Promise<SignedTx | SignedTx[]>;
+	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
 }
 
 type EventNames = "ACCOUNTS_UPDATE" | "SETTINGS_UPDATE" | "ON_LOCK_WALLET";
@@ -55,8 +59,8 @@ interface StoredAccount {
 
 export class MyAlgoWalletWithIframe extends MyAlgo {
 	constructor(frameUrl?: string);
-	connect(timeout?: number): Promise<StoredAccount[]>;
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], timeout?: number): Promise<SignedTx | SignedTx[]>;
+	connect(options?: Options): Promise<StoredAccount[]>;
+	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
 	onLoad(): Promise<void>;
 	isLocked(): Promise<boolean>;
 	lock(): Promise<void>;
