@@ -29,7 +29,7 @@ export class MyAlgoWallet {
 	 * @param options Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(options: Options = { timeout: 1600000 }): Promise<Accounts[]>;
+	connect(options?: Options): Promise<Accounts[]>;
 
 	/**
 	 * @async
@@ -38,7 +38,7 @@ export class MyAlgoWallet {
 	 * @param options Operation options
 	 * @returns Returns signed transaction or an array of signed transactions.
 	 */
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options: Options = { timeout: 1600000 }): Promise<SignedTx | SignedTx[]>;
+	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
 
 	/**
 	 * @async
@@ -48,7 +48,7 @@ export class MyAlgoWallet {
 	 * @param options Operation options
 	 * @returns Returns signed teal program
 	 */
-	async signLogicSig(logic: Uint8Array, address: Address, options: Options = { timeout: 1600000 }): Promise<Uint8Array>
+	signLogicSig(logic: Uint8Array, address: Address, options?: Options): Promise<Uint8Array>
 
 }
 

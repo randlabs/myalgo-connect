@@ -8,7 +8,7 @@ interface Txn {
 	lastRound: number;
 	genesisID: string;
 	genesisHash: Base64;
-	note?: Base64;
+	note?: Uint8Array;
 	reKeyTo?: Address;
 }
 
