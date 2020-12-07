@@ -1,5 +1,8 @@
 # Wallet My Algo
 
+![enter image description here](https://files.slack.com/files-pri/TSQ5XRSRM-F01FXMV3REK/image.png)
+
+
 * [Overview](#Overview)
 * [Installation](#Installation)
 * [API Usage](#API-Usage)
