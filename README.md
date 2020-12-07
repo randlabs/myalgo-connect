@@ -1,6 +1,6 @@
 # Wallet My Algo
 
-![enter image description here](https://files.slack.com/files-pri/TSQ5XRSRM-F01FXMV3REK/image.png)
+![](https://github.com/randlabs/wallet-myalgo-js/blob/readme/my-algo.png?raw=true)
 
 
 * [Overview](#Overview)
