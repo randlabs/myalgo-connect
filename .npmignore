@@ -6,4 +6,6 @@ test
 .eslintrc.js
 .eslintignore
 .gitignore
+.vscode
 node_modules
+.gitattributes
