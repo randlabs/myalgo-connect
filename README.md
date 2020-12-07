@@ -35,7 +35,7 @@ npm install @randlabs/wallet-myalgo-js
 
 ```js
 
-import { MyAlgoWallet } from 'wallet-myalgo-js';
+import { MyAlgoWallet } from '@randlabs/wallet-myalgo-js';
 
 
 const myAlgoWallet = new MyAlgoWallet();
