@@ -356,8 +356,8 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
       assetDecimals: 2,
       assetTotal: 50000000,
       assetURL: 'developer.algorand.org',
-      assetFreeze: '...'
-      assetManager: '...'
+      assetFreeze: '...',
+      assetManager: '...',
       assetReserve: '...',
       assetDefaultFrozen: false
     };
@@ -397,8 +397,8 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
       type: 'acfg',
       from: addresses[0],
       assetIndex: 123,
-      assetFreeze: '...'
-      assetManager: '...'
+      assetFreeze: '...',
+      assetManager: '...',
       assetReserve: '...',
     };
   
