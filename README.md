@@ -1,6 +1,6 @@
 # Wallet My Algo
 
-![](https://github.com/randlabs/wallet-myalgo-js/blob/readme/my-algo.png?raw=true)
+![](my-algo.png)
 
 
 * [Overview](#Overview)
