@@ -43,6 +43,7 @@ import { MyAlgoWallet } from '@randlabs/wallet-myalgo-js';
 
 const myAlgoWallet = new MyAlgoWallet();
 
+/*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
 const connectToMyAlgo = async() => {
   try {
     const accounts = await myAlgoWallet.connect();
@@ -536,5 +537,5 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 ```
 ### Copyright and License  
 
-See [LICENSE](LICENSE) file.
+See [LICENSE](LICENSE.md) file.
 
