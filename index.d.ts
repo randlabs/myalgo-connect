@@ -136,7 +136,7 @@ interface StoredAccount {
 }
 
 export class MyAlgoWalletWithIframe extends MyAlgoWallet {
-	constructor(frameUrl?: string);
+	constructor(frameUrl?: string, frameId?: string);
 	onLoad(): Promise<void>;
 	isLocked(): Promise<boolean>;
 	lock(): Promise<void>;
