@@ -145,5 +145,6 @@ export class MyAlgoWalletWithIframe extends MyAlgoWallet {
 	off(eventName: EventNames, callback: onUpdate): void;
 	getAccounts(): Promise<StoredAccount[]>;
 	getFullAccountInfo(accountId: string): Promise<any>;
+	hasAccount(): Promise<boolean>;
 	getSettings(): Promise<any>;
 }
