@@ -82,6 +82,11 @@ interface SignedTx {
 	blob: Uint8Array;
 }
 
+interface Status {
+	isLocked: boolean;
+	hasAccount: boolean;
+}
+
 interface Accounts {
 	address: Address;
 }
@@ -138,13 +143,11 @@ interface StoredAccount {
 export class MyAlgoWalletWithIframe extends MyAlgoWallet {
 	constructor(frameUrl?: string, frameId?: string);
 	onLoad(): Promise<void>;
-	isLocked(): Promise<boolean>;
+	status(): Promise<Status>;
 	lock(): Promise<void>;
 	unlock(password: string): Promise<void>;
 	on(eventName: EventNames, callback: onUpdate): void;
 	off(eventName: EventNames, callback: onUpdate): void;
 	getAccounts(): Promise<StoredAccount[]>;
-	getFullAccountInfo(accountId: string): Promise<any>;
-	hasAccount(): Promise<boolean>;
 	getSettings(): Promise<any>;
 }
