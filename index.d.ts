@@ -149,6 +149,6 @@ export class MyAlgoWalletWithIframe extends MyAlgoWallet {
 	on(eventName: EventNames, callback: onUpdate): void;
 	off(eventName: EventNames, callback: onUpdate): void;
 	getAccounts(): Promise<StoredAccount[]>;
-	signTx(tx: any, password: string, accountId: string): PromisePromise<SignedTx>;
+	signTx(tx: any, password: string, accountId: string): Promise<SignedTx>;
 	getSettings(): Promise<any>;
 }
