@@ -146,6 +146,7 @@ export class MyAlgoWalletWithIframe extends MyAlgoWallet {
 	status(): Promise<Status>;
 	lock(): Promise<void>;
 	unlock(password: string): Promise<void>;
+	verify(password: string): Promise<void>;
 	on(eventName: EventNames, callback: onUpdate): void;
 	off(eventName: EventNames, callback: onUpdate): void;
 	getAccounts(): Promise<StoredAccount[]>;
