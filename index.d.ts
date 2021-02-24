@@ -133,11 +133,18 @@ export class MyAlgoWallet {
 type EventNames = "ACCOUNTS_UPDATE" | "SETTINGS_UPDATE" | "ON_LOCK_WALLET";
 type onUpdate = (update: any) => void | Promise<void>;
 
+interface MultisigData {
+	addrs: Address[];
+	version: number;
+	threshold: number;
+}
+
 interface StoredAccount {
 	address: Address;
 	id: string;
 	name: string;
 	type: string;
+	multisigData: MultisigData;
 }
 
 export class MyAlgoWalletWithIframe extends MyAlgoWallet {
