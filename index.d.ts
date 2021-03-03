@@ -123,11 +123,10 @@ export class MyAlgoWallet {
 	 * @returns Returns signed teal program
 	 */
 	signLogicSig(logic: Uint8Array, address: Address, options?: Options): Promise<Uint8Array>
-
 }
 
 type EventNames = "ACCOUNTS_UPDATE" | "SETTINGS_UPDATE" | "ON_LOCK_WALLET";
-type onUpdate = (update: any) => void|Promise<void>;
+type onUpdate = (update: any) => void | Promise<void>;
 
 interface StoredAccount {
 	address: Address;
@@ -137,10 +136,11 @@ interface StoredAccount {
 }
 
 export class MyAlgoWalletWithIframe extends MyAlgoWallet {
-	constructor(frameUrl?: string);
+	constructor(frameUrl?: string, frameId?: string);
 	onLoad(): Promise<void>;
 	isLocked(): Promise<boolean>;
 	lock(): Promise<void>;
+	unlock(password: string): Promise<void>;
 	on(eventName: EventNames, callback: onUpdate): void;
 	off(eventName: EventNames, callback: onUpdate): void;
 	getAccounts(): Promise<StoredAccount[]>;
