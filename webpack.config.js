@@ -10,7 +10,7 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
 			path: path.join(__dirname, "dist"),
 			publicPath: "/dist/",
 			chunkFilename: "[name].js",
-			library: "MyAlgo",
+			library: "MyAlgoConnect",
 		},
 		module: {
 			rules: []

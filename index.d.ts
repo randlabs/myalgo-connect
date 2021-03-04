@@ -9,8 +9,11 @@ interface Txn {
 	lastRound: number;
 	genesisID: string;
 	genesisHash: Base64;
-	note?: Uint8Array;
+	note?: Uint8Array|Base64;
 	reKeyTo?: Address;
+	signer?: Address;
+	group?: Buffer|Base64;
+	flatFee: boolean;
 }
 
 interface ConfigTxn extends Txn {
@@ -39,6 +42,7 @@ export interface AssetTxn extends TransferTxn {
 
 export interface AssetConfigTxn extends ConfigTxn {
 	assetIndex: number;
+	strictEmptyAddressChecking?: boolean;
 }
 
 export interface AssetCreateTxn extends ConfigTxn {
@@ -51,9 +55,9 @@ export interface AssetCreateTxn extends ConfigTxn {
 	assetMetadataHash?: Base64;
 }
 
-export interface DestroyAssetTxn extends Txn {
-	type: "acfg";
+export interface DestroyAssetTxn extends ConfigTxn {
 	assetIndex: number;
+	strictEmptyAddressChecking?: boolean;
 }
 
 export interface FreezeAssetTxn extends Txn {
@@ -69,10 +73,71 @@ export interface KeyRegTxn extends Txn {
 	selectionKey?: Base64;
 	voteFirst: number;
 	voteLast: number;
-	voteKeyDilution: number;
+	voteKeyDilution?: number;
 }
 
-export type AlgorandTxn = PaymentTxn | AssetTxn | AssetConfigTxn | AssetCreateTxn | DestroyAssetTxn | FreezeAssetTxn;
+// eslint-disable-next-line no-shadow
+enum OnApplicationComplete {
+	NoOpOC = 0,
+	OptInOC = 1,
+	CloseOutOC = 2,
+	ClearStateOC = 3,
+	UpdateApplicationOC = 4,
+	DeleteApplicationOC = 5
+}
+
+export interface ApplicationTxn extends Txn {
+	type: "appl";
+	appArgs?: Base64[];
+	appAccounts?: Address[];
+	appForeignApps?: number[];
+	appForeignAssets?: number[];
+}
+
+export interface CreateApplTxn extends ApplicationTxn {
+	appApprovalProgram: Base64;
+	appClearProgram: Base64;
+	appLocalInts: number;
+	appLocalByteSlices: number;
+	appGlobalInts: number;
+	appGlobalByteSlices: number;
+}
+
+export interface CallApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.NoOpOC;
+}
+
+export interface NoOpApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.OptInOC;
+}
+
+export interface CloseOutApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.CloseOutOC;
+}
+
+export interface ClearApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.ClearStateOC;
+}
+export interface UpdateApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.UpdateApplicationOC;
+	appApprovalProgram: Base64;
+	appClearProgram: Base64;
+}
+
+export interface DeleteApplTxn extends ApplicationTxn {
+	appIndex: number;
+	appOnComplete: OnApplicationComplete.DeleteApplicationOC;
+}
+
+type ApplTxn = CreateApplTxn | CallApplTxn | NoOpApplTxn | CloseOutApplTxn | ClearApplTxn | UpdateApplTxn;
+
+
+export type AlgorandTxn = PaymentTxn | AssetTxn | AssetConfigTxn | AssetCreateTxn | DestroyAssetTxn | FreezeAssetTxn | KeyRegTxn | ApplTxn;
 
 
 interface SignedTx {
@@ -90,7 +155,7 @@ interface Options {
 	timeout: number;
 }
 
-export class MyAlgoWallet {
+export class MyAlgoConnect {
 
 	/**
 	 * @param frameUrl Override wallet.myalgo.com default frame url.
@@ -122,27 +187,5 @@ export class MyAlgoWallet {
 	 * @param options Operation options
 	 * @returns Returns signed teal program
 	 */
-	signLogicSig(logic: Uint8Array, address: Address, options?: Options): Promise<Uint8Array>
-}
-
-type EventNames = "ACCOUNTS_UPDATE" | "SETTINGS_UPDATE" | "ON_LOCK_WALLET";
-type onUpdate = (update: any) => void | Promise<void>;
-
-interface StoredAccount {
-	address: Address;
-	id: string;
-	name: string;
-	type: string;
-}
-
-export class MyAlgoWalletWithIframe extends MyAlgoWallet {
-	constructor(frameUrl?: string, frameId?: string);
-	onLoad(): Promise<void>;
-	isLocked(): Promise<boolean>;
-	lock(): Promise<void>;
-	unlock(password: string): Promise<void>;
-	on(eventName: EventNames, callback: onUpdate): void;
-	off(eventName: EventNames, callback: onUpdate): void;
-	getAccounts(): Promise<StoredAccount[]>;
-	getSettings(): Promise<any>;
+	signLogicSig(logic: Uint8Array | Base64, address: Address, options?: Options): Promise<Uint8Array>
 }
