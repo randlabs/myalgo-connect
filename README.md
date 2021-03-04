@@ -1,7 +1,6 @@
 # Wallet My Algo
 
-![](my-algo.png)
-
+![myalgo-logo](my-algo.png)
 
 * [Overview](#Overview)
 * [Installation](#Installation)
@@ -29,7 +28,7 @@ Wallet My Algo is a Javascript library developed by Rand Labs to securely sign t
 
 The library can be installed via npm:
 ```sh
-npm install @randlabs/wallet-myalgo-js
+npm i @randlabs/myalgo-connect
 ```
 
 ### API Usage  
@@ -38,10 +37,10 @@ npm install @randlabs/wallet-myalgo-js
 
 ```js
 
-import { MyAlgoWallet } from '@randlabs/wallet-myalgo-js';
+import MyAlgo from '@randlabs/myalgo-connect';
 
 
-const myAlgoWallet = new MyAlgoWallet();
+const myAlgoWallet = new MyAlgo();
 
 /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
 const connectToMyAlgo = async() => {
@@ -93,7 +92,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 })();
 
 ```
-
 
 ### Payment transaction (with closeTo)
 
@@ -172,7 +170,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Payment transaction (with signer)
 
 ```js
@@ -210,7 +207,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 })();
 
 ```
-
 
 ### Asset transfer (with note)
 
@@ -251,7 +247,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Asset transfer (with closeTo)
 
 ```js
@@ -291,7 +286,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Asset freeze (with note)
 
 ```js
@@ -330,7 +324,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 })();
 
 ```
-
 
 ### Asset config (create ASA)
 
@@ -376,7 +369,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Asset config (update ASA)
 
 ```js
@@ -416,7 +408,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Asset config (remove ASA)
 
 ```js
@@ -452,7 +443,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 })();
 
 ```
-
 
 ### Keyreg
 
@@ -494,7 +484,6 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 ```
 
-
 ### Sign Teal
 
 ```js
@@ -535,7 +524,7 @@ const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 })();
 
 ```
+
 ### Copyright and License  
 
 See [LICENSE](LICENSE.md) file.
-

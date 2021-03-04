@@ -155,7 +155,7 @@ interface Options {
 	timeout: number;
 }
 
-export class MyAlgoWallet {
+export class MyAlgoConnect {
 
 	/**
 	 * @param frameUrl Override wallet.myalgo.com default frame url.

@@ -1,6 +1,6 @@
 {
-  "name": "@randlabs/wallet-myalgo-js",
-  "version": "1.0.3",
+  "name": "@randlabs/myalgo-connect",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "types": "index.d.ts",
@@ -22,13 +22,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/randlabs/wallet-myalgo-js.git"
+    "url": "git+https://github.com/randlabs/myalgo-connect.git"
   },
   "keywords": [],
   "author": "RandLabs.IO",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/randlabs/wallet-myalgo-js/issues"
+    "url": "https://github.com/randlabs/myalgo-connect/issues"
   },
-  "homepage": "https://github.com/randlabs/wallet-myalgo-js#readme"
+  "homepage": "https://github.com/randlabs/myalgo-connect#readme"
 }
