@@ -88,15 +88,15 @@ export enum OnApplicationComplete {
 
 export interface ApplicationTxn extends Txn {
 	type: "appl";
-	appArgs?: Base64[];
+	appArgs?: Uint8Array[]|Base64[];
 	appAccounts?: Address[];
 	appForeignApps?: number[];
 	appForeignAssets?: number[];
 }
 
 export interface CreateApplTxn extends ApplicationTxn {
-	appApprovalProgram: Base64;
-	appClearProgram: Base64;
+	appApprovalProgram: Uint8Array|Base64;
+	appClearProgram: Uint8Array|Base64;
 	appLocalInts: number;
 	appLocalByteSlices: number;
 	appGlobalInts: number;
@@ -125,8 +125,8 @@ export interface ClearApplTxn extends ApplicationTxn {
 export interface UpdateApplTxn extends ApplicationTxn {
 	appIndex: number;
 	appOnComplete: OnApplicationComplete.UpdateApplicationOC;
-	appApprovalProgram: Base64;
-	appClearProgram: Base64;
+	appApprovalProgram: Uint8Array|Base64;
+	appClearProgram: Uint8Array|Base64;
 }
 
 export interface DeleteApplTxn extends ApplicationTxn {
