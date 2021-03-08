@@ -77,7 +77,7 @@ export interface KeyRegTxn extends Txn {
 }
 
 // eslint-disable-next-line no-shadow
-enum OnApplicationComplete {
+export enum OnApplicationComplete {
 	NoOpOC = 0,
 	OptInOC = 1,
 	CloseOutOC = 2,
@@ -108,7 +108,7 @@ export interface CallApplTxn extends ApplicationTxn {
 	appOnComplete: OnApplicationComplete.NoOpOC;
 }
 
-export interface NoOpApplTxn extends ApplicationTxn {
+export interface OptInApplTxn extends ApplicationTxn {
 	appIndex: number;
 	appOnComplete: OnApplicationComplete.OptInOC;
 }
@@ -134,28 +134,28 @@ export interface DeleteApplTxn extends ApplicationTxn {
 	appOnComplete: OnApplicationComplete.DeleteApplicationOC;
 }
 
-type ApplTxn = CreateApplTxn | CallApplTxn | NoOpApplTxn | CloseOutApplTxn | ClearApplTxn | UpdateApplTxn;
+export type ApplTxn = CreateApplTxn | CallApplTxn | OptInApplTxn | CloseOutApplTxn | ClearApplTxn | UpdateApplTxn;
 
 
 export type AlgorandTxn = PaymentTxn | AssetTxn | AssetConfigTxn | AssetCreateTxn | DestroyAssetTxn | FreezeAssetTxn | KeyRegTxn | ApplTxn;
 
 
-interface SignedTx {
+export interface SignedTx {
 	// Transaction hash
 	txID: TxHash;
 	// Signed transaction
 	blob: Uint8Array;
 }
 
-interface Accounts {
+export interface Accounts {
 	address: Address;
 }
 
-interface Options {
+export interface Options {
 	timeout: number;
 }
 
-export class MyAlgoConnect {
+export default class MyAlgoConnect {
 
 	/**
 	 * @param frameUrl Override wallet.myalgo.com default frame url.
@@ -173,11 +173,21 @@ export class MyAlgoConnect {
 	/**
 	 * @async
 	 * @description Sign an Algorand Transaction.
-	 * @param transaction Expect a valid Algorand transaction or transaction array.
+	 * @param transaction Expect a valid Algorand transaction
 	 * @param options Operation options
-	 * @returns Returns signed transaction or an array of signed transactions.
+	 * @returns Returns signed transaction
 	 */
-	signTransaction(transaction: AlgorandTxn | AlgorandTxn[], options?: Options): Promise<SignedTx | SignedTx[]>;
+	signTransaction(transaction: AlgorandTxn, options?: Options): Promise<SignedTx>;
+
+	/**
+	 * @async
+	 * @description Sign an Algorand Transaction.
+	 * @param transaction Expect a valid Algorand transaction array.
+	 * @param options Operation options
+	 * @returns Returns signed an array of signed transactions.
+	 */
+	signTransaction(transaction: AlgorandTxn[], options?: Options): Promise<SignedTx[]>;
+
 
 	/**
 	 * @async
