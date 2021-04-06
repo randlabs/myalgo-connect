@@ -9,10 +9,10 @@ interface Txn {
 	lastRound: number;
 	genesisID: string;
 	genesisHash: Base64;
-	note?: Uint8Array|Base64;
+	note?: Uint8Array | Base64;
 	reKeyTo?: Address;
 	signer?: Address;
-	group?: Buffer|Base64;
+	group?: Buffer | Base64;
 	flatFee: boolean;
 }
 
@@ -88,15 +88,15 @@ export enum OnApplicationComplete {
 
 export interface ApplicationTxn extends Txn {
 	type: "appl";
-	appArgs?: Uint8Array[]|Base64[];
+	appArgs?: Uint8Array[] | Base64[];
 	appAccounts?: Address[];
 	appForeignApps?: number[];
 	appForeignAssets?: number[];
 }
 
 export interface CreateApplTxn extends ApplicationTxn {
-	appApprovalProgram: Uint8Array|Base64;
-	appClearProgram: Uint8Array|Base64;
+	appApprovalProgram: Uint8Array | Base64;
+	appClearProgram: Uint8Array | Base64;
 	appLocalInts: number;
 	appLocalByteSlices: number;
 	appGlobalInts: number;
@@ -125,8 +125,8 @@ export interface ClearApplTxn extends ApplicationTxn {
 export interface UpdateApplTxn extends ApplicationTxn {
 	appIndex: number;
 	appOnComplete: OnApplicationComplete.UpdateApplicationOC;
-	appApprovalProgram: Uint8Array|Base64;
-	appClearProgram: Uint8Array|Base64;
+	appApprovalProgram: Uint8Array | Base64;
+	appClearProgram: Uint8Array | Base64;
 }
 
 export interface DeleteApplTxn extends ApplicationTxn {
@@ -155,6 +155,10 @@ export interface Options {
 	timeout: number;
 }
 
+export interface ConnectionSettings {
+	allowSelectOneAccount: boolean;
+}
+
 export default class MyAlgoConnect {
 
 	/**
@@ -165,10 +169,11 @@ export default class MyAlgoConnect {
 	/**
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
-	 * @param options Operation options
+	 * @param {ConnectionSettings} Connection settings
+	 * @param {Options} Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(options?: Options): Promise<Accounts[]>;
+	connect(settings?: ConnectionSettings, options?: Options): Promise<Accounts[]>;
 
 	/**
 	 * @async
