@@ -10,3 +10,4 @@ test
 node_modules
 .gitattributes
 my-algo.png
+tsconfig.json
