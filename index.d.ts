@@ -156,7 +156,7 @@ export interface Options {
 }
 
 export interface ConnectionSettings {
-	allowSelectOneAccount: boolean;
+	shouldSelectOneAccount: boolean;
 }
 
 export default class MyAlgoConnect {
@@ -193,7 +193,6 @@ export default class MyAlgoConnect {
 	 */
 	signTransaction(transaction: AlgorandTxn[], options?: Options): Promise<SignedTx[]>;
 
-
 	/**
 	 * @async
 	 * @description Sign a teal program
@@ -202,5 +201,5 @@ export default class MyAlgoConnect {
 	 * @param options Operation options
 	 * @returns Returns signed teal program
 	 */
-	signLogicSig(logic: Uint8Array | Base64, address: Address, options?: Options): Promise<Uint8Array>
+	signLogicSig(logic: Uint8Array | Base64, address: Address, options?: Options): Promise<Uint8Array>;
 }
