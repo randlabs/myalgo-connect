@@ -149,6 +149,7 @@ export interface SignedTx {
 
 export interface Accounts {
 	address: Address;
+	name: string;
 }
 
 export interface Options {
