@@ -11,7 +11,6 @@ interface Txn {
 	genesisHash: Base64;
 	note?: Uint8Array | Base64;
 	reKeyTo?: Address;
-	signer?: Address;
 	group?: Buffer | Base64;
 	flatFee: boolean;
 }
