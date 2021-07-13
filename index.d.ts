@@ -41,7 +41,6 @@ export interface AssetTxn extends TransferTxn {
 
 export interface AssetConfigTxn extends ConfigTxn {
 	assetIndex: number;
-	strictEmptyAddressChecking?: boolean;
 }
 
 export interface AssetCreateTxn extends ConfigTxn {
@@ -56,7 +55,6 @@ export interface AssetCreateTxn extends ConfigTxn {
 
 export interface DestroyAssetTxn extends ConfigTxn {
 	assetIndex: number;
-	strictEmptyAddressChecking?: boolean;
 }
 
 export interface FreezeAssetTxn extends Txn {
@@ -100,6 +98,7 @@ export interface CreateApplTxn extends ApplicationTxn {
 	appLocalByteSlices: number;
 	appGlobalInts: number;
 	appGlobalByteSlices: number;
+	appOnComplete?: OnApplicationComplete; // Default value is 0
 }
 
 export interface CallApplTxn extends ApplicationTxn {
@@ -164,7 +163,7 @@ export interface ConnectionSettings {
 export default class MyAlgoConnect {
 
 	/**
-	 * @param frameUrl Override wallet.myalgo.com default frame url.
+	 * @param {Options} options Override default popup options.
 	 */
 	constructor(options?: Options);
 
@@ -172,7 +171,6 @@ export default class MyAlgoConnect {
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
 	 * @param {ConnectionSettings} Connection settings
-	 * @param {Options} Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
 	connect(settings?: ConnectionSettings): Promise<Accounts[]>;
@@ -181,7 +179,6 @@ export default class MyAlgoConnect {
 	 * @async
 	 * @description Sign an Algorand Transaction.
 	 * @param transaction Expect a valid Algorand transaction
-	 * @param options Operation options
 	 * @returns Returns signed transaction
 	 */
 	signTransaction(transaction: AlgorandTxn | EncodedTransaction): Promise<SignedTx>;
@@ -190,7 +187,6 @@ export default class MyAlgoConnect {
 	 * @async
 	 * @description Sign an Algorand Transaction.
 	 * @param transaction Expect a valid Algorand transaction array.
-	 * @param options Operation options
 	 * @returns Returns signed an array of signed transactions.
 	 */
 	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[]): Promise<SignedTx[]>;
@@ -200,8 +196,7 @@ export default class MyAlgoConnect {
 	 * @description Sign a teal program
 	 * @param logic Teal program
 	 * @param address Signer Address
-	 * @param options Operation options
-	 * @returns Returns signed teal program
+	 * @returns Returns signed teal
 	 */
 	signLogicSig(logic: Uint8Array | Base64, address: Address): Promise<Uint8Array>;
 }
