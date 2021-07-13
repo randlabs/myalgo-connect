@@ -1,6 +1,8 @@
 const path = require("path");
+const webpack = require("webpack");
 
-module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
+module.exports = (env, argv) => {
+	const mode = argv.mode ? argv.mode : "production";
 	return {
 		mode: mode,
 		entry: {
@@ -18,5 +20,11 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
 		resolve: {
 			extensions: [ ".json", ".js" ]
 		},
+		plugins: [
+			new webpack.ProvidePlugin({
+				process: "process/browser",
+				Buffer: [ "buffer", "Buffer" ],
+			}),
+		]
 	};
 };

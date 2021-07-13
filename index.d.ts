@@ -11,7 +11,6 @@ interface Txn {
 	genesisHash: Base64;
 	note?: Uint8Array | Base64;
 	reKeyTo?: Address;
-	signer?: Address;
 	group?: Buffer | Base64;
 	flatFee: boolean;
 }
@@ -52,7 +51,7 @@ export interface AssetCreateTxn extends ConfigTxn {
 	assetName?: string;
 	assetUnitName?: string;
 	assetURL?: string;
-	assetMetadataHash?: Base64;
+	assetMetadataHash?: Uint8Array|Base64;
 }
 
 export interface DestroyAssetTxn extends ConfigTxn {
@@ -136,6 +135,7 @@ export interface DeleteApplTxn extends ApplicationTxn {
 
 export type ApplTxn = CreateApplTxn | CallApplTxn | OptInApplTxn | CloseOutApplTxn | ClearApplTxn | UpdateApplTxn;
 
+export type EncodedTransaction = Base64 | Uint8Array;
 
 export type AlgorandTxn = PaymentTxn | AssetTxn | AssetConfigTxn | AssetCreateTxn | DestroyAssetTxn | FreezeAssetTxn | KeyRegTxn | ApplTxn;
 
@@ -149,10 +149,12 @@ export interface SignedTx {
 
 export interface Accounts {
 	address: Address;
+	name: string;
 }
 
 export interface Options {
-	timeout: number;
+	timeout?: number;
+	bridgeUrl?: string;
 }
 
 export interface ConnectionSettings {
@@ -164,7 +166,7 @@ export default class MyAlgoConnect {
 	/**
 	 * @param frameUrl Override wallet.myalgo.com default frame url.
 	 */
-	constructor(frameUrl?: string);
+	constructor(options?: Options);
 
 	/**
 	 * @async
@@ -173,7 +175,7 @@ export default class MyAlgoConnect {
 	 * @param {Options} Operation options
 	 * @returns Returns an array of Algorand addresses.
 	 */
-	connect(settings?: ConnectionSettings, options?: Options): Promise<Accounts[]>;
+	connect(settings?: ConnectionSettings): Promise<Accounts[]>;
 
 	/**
 	 * @async
@@ -182,7 +184,7 @@ export default class MyAlgoConnect {
 	 * @param options Operation options
 	 * @returns Returns signed transaction
 	 */
-	signTransaction(transaction: AlgorandTxn, options?: Options): Promise<SignedTx>;
+	signTransaction(transaction: AlgorandTxn | EncodedTransaction): Promise<SignedTx>;
 
 	/**
 	 * @async
@@ -191,7 +193,7 @@ export default class MyAlgoConnect {
 	 * @param options Operation options
 	 * @returns Returns signed an array of signed transactions.
 	 */
-	signTransaction(transaction: AlgorandTxn[], options?: Options): Promise<SignedTx[]>;
+	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[]): Promise<SignedTx[]>;
 
 	/**
 	 * @async
@@ -201,5 +203,5 @@ export default class MyAlgoConnect {
 	 * @param options Operation options
 	 * @returns Returns signed teal program
 	 */
-	signLogicSig(logic: Uint8Array | Base64, address: Address, options?: Options): Promise<Uint8Array>;
+	signLogicSig(logic: Uint8Array | Base64, address: Address): Promise<Uint8Array>;
 }
