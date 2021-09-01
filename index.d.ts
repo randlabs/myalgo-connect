@@ -126,6 +126,7 @@ export interface UpdateApplTxn extends ApplicationTxn {
 	appOnComplete: OnApplicationComplete.UpdateApplicationOC;
 	appApprovalProgram: Uint8Array | Base64;
 	appClearProgram: Uint8Array | Base64;
+	extraPages?: number;
 }
 
 export interface DeleteApplTxn extends ApplicationTxn {
