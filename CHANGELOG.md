@@ -1,5 +1,16 @@
 # MyAlgo Connect Change log
 
+## [1.1.1] - 01-09-2021
+
+### Added
+
+- Added new field `extraPages`
+- Allow zero fee (Fee polling)
+
+### Known issue
+
+- MyAlgo Connect package still has the `Buffer is not defined` error (#27).
+
 ## [1.1.0] - 13-07-2021
 
 ### Added
@@ -34,7 +45,7 @@
 
 ### Known issue
 
-- MyAlgo Connect package still has the buffer not find error (#27).
+- MyAlgo Connect package still has the `Buffer is not defined` error (#27).
 
 ## [1.0.1] - 08-03-2021
 
