@@ -99,6 +99,7 @@ export interface CreateApplTxn extends ApplicationTxn {
 	appGlobalInts: number;
 	appGlobalByteSlices: number;
 	appOnComplete?: OnApplicationComplete; // Default value is 0
+	extraPages?: number;
 }
 
 export interface CallApplTxn extends ApplicationTxn {
