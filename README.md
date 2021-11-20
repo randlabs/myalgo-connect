@@ -4,7 +4,7 @@
 [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.com/channels/491256308461207573/817420411502329896)
 [![Twitter](https://badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/myalgo_)
 
-![myalgo-logo](my-algo.png)
+![myalgo-logo](brand-kit/my-algo.png)
 
 * [Overview](#Overview)
 * [Installation](#Installation)
