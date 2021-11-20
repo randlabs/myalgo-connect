@@ -1,4 +1,5 @@
 # Wallet My Algo
+
 [![npm version](https://badge.fury.io/js/@randlabs%2Fmyalgo-connect.svg)](https://badge.fury.io/js/@randlabs%2Fmyalgo-connect)
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://connect.myalgo.com/)
 [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.com/channels/491256308461207573/817420411502329896)
@@ -33,7 +34,7 @@ or imported in the HTML
 <script src="./myalgo.min.js"></script>
 ```
 
-Find the browser minified version in our github releases
+Find the browser minified version in our github [releases](https://github.com/randlabs/myalgo-connect/releases)
 
 ## API Usage  
 
@@ -84,7 +85,7 @@ async function signTransaction (from, to, amount, suggestedParams) {
 
 ## Documentation
 
-Documentation for this package is available here: <https://connect.myalgo.com/>.
+Documentation for this package is available here: <https://connect.myalgo.com/>. An example of an integration with MyAlgo Connect: <https://github.com/randlabs/myalgo-connect-test>
 
 ## Copyright and License  
 
