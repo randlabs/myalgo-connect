@@ -5,8 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "dependencies": {
-    "@randlabs/communication-bridge": "^1.0.0",
-    "belter": "^1.0.170"
+    "@randlabs/communication-bridge": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^14.17.3",
