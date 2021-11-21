@@ -74,7 +74,7 @@ const algodClient = new algosdk.Algodv2('', 'https://api.algoexplorer.io/', '');
 async function signTransaction (from, to, amount, suggestedParams) {
   try {
     const txn = algosdk.makePaymentTxnWithSuggestedParams({ suggestedParams, from, to, amount });
-    const signedTxn = await myAlgoWallet.signTransaction(txn);  
+    const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());  
     const response = await algodClient.sendRawTransaction(signedTxn.blob).do();
     console.log(response)
   } catch(err) {
