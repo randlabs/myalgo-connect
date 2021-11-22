@@ -1,52 +1,57 @@
 # Wallet My Algo
 
-![myalgo-logo](my-algo.png)
+[![npm version](https://badge.fury.io/js/@randlabs%2Fmyalgo-connect.svg)](https://badge.fury.io/js/@randlabs%2Fmyalgo-connect)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://connect.myalgo.com/)
+[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.com/channels/491256308461207573/817420411502329896)
+[![Twitter](https://badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/myalgo_)
+
+![myalgo-logo](brand-kit/my-algo.png)
 
 * [Overview](#Overview)
 * [Installation](#Installation)
 * [API Usage](#API-Usage)
+  * [Quick start](#Quick-start)
   * [Connect to My Algo](#Connect-to-My-Algo)
-  * [Payment transaction (with note)](#Payment-transaction-with-note)
-  * [Payment transaction (with closeTo)](#Payment-transaction-with-closeTo)
-  * [Payment transaction (with rekey)](#Payment-transaction-with-rekey)
-  * [Payment transaction (with signer)](#Payment-transaction-with-signer)
-  * [Asset transfer (with note)](#Asset-transfer-with-note)
-  * [Asset transfer (with closeTo)](#Asset-transfer-with-closeTo)
-  * [Asset freeze (with note)](#Asset-freeze-with-note)
-  * [Asset config (create ASA)](#Asset-config-create-ASA)
-  * [Asset config (update ASA)](#Asset-config-update-ASA)
-  * [Asset config (remove ASA)](#Asset-config-remove-ASA)
-  * [Keyreg](#Keyreg)
-  * [Sign Teal](#Sign-Teal)
+  * [Sign transaction](#Sign-transaction)
+* [Documentation](#Documentation)
 * [Copyright and License](#Copyright-and-License)
 
-### Overview
+## Overview
 
 Wallet My Algo is a Javascript library developed by Rand Labs to securely sign transactions with [My Algo](https://wallet.myalgo.com)
 
-### Installation  
+## Installation  
 
-The library can be installed via npm:
+The package can be installed via npm:
+
 ```sh
 npm i @randlabs/myalgo-connect
 ```
 
-### API Usage  
+or imported in the HTML
 
-#### Connect to My Algo  
+```html
+<script src="./myalgo.min.js"></script>
+```
+
+Find the browser minified version in our github [releases](https://github.com/randlabs/myalgo-connect/releases)
+
+## API Usage  
+
+### Quick start
 
 ```js
+import MyAlgoConnect from '@randlabs/myalgo-connect';
+const myAlgoWallet = new MyAlgoConnect();
+```
 
-import MyAlgo from '@randlabs/myalgo-connect';
+### Connect to My Algo  
 
-
-const myAlgoWallet = new MyAlgo();
-
+```js
 /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
-const connectToMyAlgo = async() => {
+async function connectToMyAlgo {
   try {
     const accounts = await myAlgoWallet.connect();
-
     const addresses = accounts.map(account => account.address);
     
   } catch (err) {
@@ -55,476 +60,33 @@ const connectToMyAlgo = async() => {
 }
 ```
 
-#### Payment transaction (with note)
+```html
+<button onclick="connectToMyAlgo()">Connect!</button>
+```
+
+### Sign transaction
 
 ```js
-
 import algosdk from 'algosdk';
+const algodClient = new algosdk.Algodv2('', 'https://api.algoexplorer.io/', '');
 
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
+/*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
+async function signTransaction (from, to, amount, suggestedParams) {
   try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'pay',
-      from: addresses[0],
-      to:  '...',
-      amount: 1000000,
-      note: new Uint8Array(Buffer.from('Hello World'))
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
+    const txn = algosdk.makePaymentTxnWithSuggestedParams({ suggestedParams, from, to, amount });
+    const signedTxn = await myAlgoWallet.signTransaction(txn.toByte());  
+    const response = await algodClient.sendRawTransaction(signedTxn.blob).do();
+    console.log(response)
   } catch(err) {
     console.error(err); 
   }
-})();
-
+};
 ```
 
-### Payment transaction (with closeTo)
+## Documentation
 
-```js
+Documentation for this package is available here: <https://connect.myalgo.com/>. An example of an integration with MyAlgo Connect: <https://github.com/randlabs/myalgo-connect-test>
 
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-  
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'pay',
-      from: addresses[0],
-      to:  '...',
-      amount: 1000000,
-      closeRemainderTo: '...' // closeTo address
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-
-### Payment transaction (with rekey)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'pay',
-      from: addresses[0],
-      to:  addresses[0],
-      amount: 0,
-      reKeyTo: '...' //Authorized address for signing
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Payment transaction (with signer)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'pay',
-      from: '...', // Rekeyed address
-      to:  '...',
-      amount: 1000000,
-      signer: addresses[0] // Authorized adresses for signing
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset transfer (with note)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'axfer',
-      assetIndex: 123,
-      from: addresses[0],
-      to:  '...',
-      amount: 1000000,
-      note: new Uint8Array(Buffer.from('Hello World'))
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset transfer (with closeTo)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-  
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'axfer',
-      assetIndex: 123,
-      from: addresses[0],
-      to:  '...',
-      amount: 1000000,
-      closeRemainderTo: '...'
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset freeze (with note)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'afrz',
-      from: addresses[0],
-      assetIndex: 123,
-      freezeAccount:  '...', // Address to freeze
-      note: new Uint8Array(Buffer.from('Hello World')),
-      freezeState: true
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset config (create ASA)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'acfg',
-      from: addresses[0],
-      assetName: 'My New Coin',
-      assetUnitName: 'MNC',
-      assetDecimals: 2,
-      assetTotal: 50000000,
-      assetURL: 'developer.algorand.org',
-      assetFreeze: '...',
-      assetManager: '...',
-      assetReserve: '...',
-      assetDefaultFrozen: false
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset config (update ASA)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'acfg',
-      from: addresses[0],
-      assetIndex: 123,
-      assetFreeze: '...',
-      assetManager: '...',
-      assetReserve: '...',
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Asset config (remove ASA)
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'acfg',
-      from: addresses[0],
-      assetIndex: 123,
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Keyreg
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 2000,
-      flatFee: true,
-      type: 'keyreg',
-      from: addresses[0],
-      voteKey: 'eXq34wzh2UIxCZaI1leALKyAvSz/+XOe0wqdHagM+bw=',
-      selectionKey: 'X84ReKTmp+yfgmMCbbokVqeFFFrKQeFZKEXG89SXwm4=',
-      voteFirst: 6000000,
-      voteLast: 9000000,
-      voteKeyDilution: 1730,
-    };
-  
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Sign Teal
-
-```js
-
-import algosdk from 'algosdk';
-
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-
-(async () => {
-  try {
-
-    let txn = await algodClient.getTransactionParams().do();
-      
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'pay',
-      from: '...',
-      to: '...',
-      amount: 10000,
-    };
-
-    let program = new Uint8Array(Buffer.from('ASABASI=', "base64")); // int 1
-
-    let lsig = algosdk.makeLogicSig(program);
-    lsig.sig = await myAlgoWallet.signLogicSig(program, addresses[0]);
-  
-    let signedTxn = algosdk.signLogicSigTransaction(txn, lsig);
-  
-    await algodClient.sendRawTransaction(signedTxn.blob).do();
-
-  
-  } catch(err) {
-    console.error(err); 
-  }
-})();
-
-```
-
-### Copyright and License  
+## Copyright and License  
 
 See [LICENSE](LICENSE.md) file.
