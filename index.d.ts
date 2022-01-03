@@ -158,7 +158,13 @@ export interface Options {
 }
 
 export interface ConnectionSettings {
-	shouldSelectOneAccount: boolean;
+	shouldSelectOneAccount?: boolean;
+	openManager?: boolean;
+	disableLedgerNano?: boolean;
+}
+
+export interface SignTxSettings {
+	disableLedgerNano?: boolean;
 }
 
 export default class MyAlgoConnect {
@@ -171,7 +177,7 @@ export default class MyAlgoConnect {
 	/**
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
-	 * @param {ConnectionSettings} Connection settings
+	 * @param {ConnectionSettings} [settings] settings
 	 * @returns Returns an array of Algorand addresses.
 	 */
 	connect(settings?: ConnectionSettings): Promise<Accounts[]>;
@@ -188,9 +194,10 @@ export default class MyAlgoConnect {
 	 * @async
 	 * @description Sign an Algorand Transaction.
 	 * @param transaction Expect a valid Algorand transaction array.
+	 * @param settings Sign transaction settings
 	 * @returns Returns signed an array of signed transactions.
 	 */
-	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[]): Promise<SignedTx[]>;
+	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[], settings: SignTxSettings): Promise<SignedTx[]>;
 
 	/**
 	 * @async
