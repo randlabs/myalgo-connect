@@ -155,16 +155,12 @@ export interface Accounts {
 export interface Options {
 	timeout?: number;
 	bridgeUrl?: string;
+	disableLedgerNano?: boolean;
 }
 
 export interface ConnectionSettings {
 	shouldSelectOneAccount?: boolean;
 	openManager?: boolean;
-	disableLedgerNano?: boolean;
-}
-
-export interface SignTxSettings {
-	disableLedgerNano?: boolean;
 }
 
 export default class MyAlgoConnect {
@@ -194,10 +190,9 @@ export default class MyAlgoConnect {
 	 * @async
 	 * @description Sign an Algorand Transaction.
 	 * @param transaction Expect a valid Algorand transaction array.
-	 * @param settings Sign transaction settings
 	 * @returns Returns signed an array of signed transactions.
 	 */
-	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[], settings: SignTxSettings): Promise<SignedTx[]>;
+	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[]): Promise<SignedTx[]>;
 
 	/**
 	 * @async
