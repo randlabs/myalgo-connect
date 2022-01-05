@@ -173,7 +173,7 @@ export default class MyAlgoConnect {
 	/**
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
-	 * @param {ConnectionSettings} [settings] settings
+	 * @param {ConnectionSettings} [settings] Connection settings
 	 * @returns Returns an array of Algorand addresses.
 	 */
 	connect(settings?: ConnectionSettings): Promise<Accounts[]>;
