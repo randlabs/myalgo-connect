@@ -4,8 +4,8 @@
 
 ### Added
 
-- Added new constructor param `disableLedgerNano`
-- Added new two param to connect method `openManager` and `shouldSelectOneAccount`
+- Added new param in the constructor `disableLedgerNano`
+- Added two new params for connect method `openManager` and `shouldSelectOneAccount`
 
 ### Updated
 
