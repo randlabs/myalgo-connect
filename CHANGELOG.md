@@ -1,5 +1,21 @@
 # MyAlgo Connect Change log
 
+## [1.1.2] - 10-01-2022
+
+### Added
+
+- Added new constructor param `disableLedgerNano`
+- Added new two param to connect method `openManager` and `shouldSelectOneAccount`
+
+### Updated
+
+- Removed belterjs from dependencies
+- Improved popup handlers
+
+### Known issue
+
+- MyAlgo Connect package still has the `Buffer is not defined` error (#27).
+
 ## [1.1.1] - 01-09-2021
 
 ### Added
