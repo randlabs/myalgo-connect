@@ -155,10 +155,12 @@ export interface Accounts {
 export interface Options {
 	timeout?: number;
 	bridgeUrl?: string;
+	disableLedgerNano?: boolean;
 }
 
 export interface ConnectionSettings {
-	shouldSelectOneAccount: boolean;
+	shouldSelectOneAccount?: boolean;
+	openManager?: boolean;
 }
 
 export default class MyAlgoConnect {
@@ -171,7 +173,7 @@ export default class MyAlgoConnect {
 	/**
 	 * @async
 	 * @description Receives user's accounts from MyAlgo.
-	 * @param {ConnectionSettings} Connection settings
+	 * @param {ConnectionSettings} [settings] Connection settings
 	 * @returns Returns an array of Algorand addresses.
 	 */
 	connect(settings?: ConnectionSettings): Promise<Accounts[]>;
