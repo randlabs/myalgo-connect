@@ -1,6 +1,20 @@
 # MyAlgo Connect Change log
 
-## [1.1.2] - 10-01-2022
+## [1.1.3] - 2022-04-13
+
+### Added
+
+ - Added optional object parameter to the `signTransaction` method to force MyAlgoConnect to sign with a specific account
+
+### Fixed
+
+ - Fixed error caused by undefined `window` reference when working with server side applications/frameworks such as Next.js (see related [issue](https://github.com/randlabs/communication-bridge/issues/5))
+
+### Known issue
+
+- MyAlgo Connect package still has the `Buffer is not defined` error (#27).
+
+## [1.1.2] - 2022-01-10
 
 ### Added
 
@@ -16,7 +30,7 @@
 
 - MyAlgo Connect package still has the `Buffer is not defined` error (#27).
 
-## [1.1.1] - 01-09-2021
+## [1.1.1] - 2021-09-01
 
 ### Added
 
@@ -27,7 +41,7 @@
 
 - MyAlgo Connect package still has the `Buffer is not defined` error (#27).
 
-## [1.1.0] - 13-07-2021
+## [1.1.0] - 2021-07-13
 
 ### Added
 
@@ -63,13 +77,13 @@
 
 - MyAlgo Connect package still has the `Buffer is not defined` error (#27).
 
-## [1.0.1] - 08-03-2021
+## [1.0.1] - 2021-03-08
 
 ### Fixes
 
 - Exported SignedTxn (#14).
 - Minor fixes
 
-## [1.0.0] - 04-03-2021
+## [1.0.0] - 2021-03-04
 
 - Initial release.
