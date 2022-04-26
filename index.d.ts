@@ -208,4 +208,14 @@ export default class MyAlgoConnect {
 	 * @returns Returns signed teal
 	 */
 	signLogicSig(logic: Uint8Array | Base64, address: Address): Promise<Uint8Array>;
+
+	/**
+	 * @async
+	 * @description Creates a signature the data that can later be verified by the contract through the ed25519verify opcode
+	 * @param data Arbitrary data to sign
+	 * @param contractAddress Contract address/TEAL program hash
+	 * @param address Signer Address
+	 * @returns Returns the data signature
+	 */
+	tealSign(data: Uint8Array | Base64, contractAddress: Address, address: Address): Promise<Uint8Array>;
 }
