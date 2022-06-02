@@ -1,6 +1,6 @@
 # MyAlgo Connect Change log
 
-## [1.2.0] - 2022-XX-XX
+## [1.2.0] - 2022-06-02
 
 ### Added
 
