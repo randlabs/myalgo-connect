@@ -1,10 +1,16 @@
 # MyAlgo Connect Change log
 
+## [1.3.0] - 2022-08-24
+
+### Added
+
+ - Added new function `signBytes` to sign an arbitrary array of bytes. See also: [algosdk.signBytes](https://algorand.github.io/js-algorand-sdk/modules.html#signBytes). This operation is only supported for mnemonic accounts.
+
 ## [1.2.0] - 2022-06-02
 
 ### Added
 
- - Added new function `tealSign` to generate `ed25519` signatures that can be verified by a teal program. See also: [ed25519verify opcode](https://developer.algorand.org/docs/get-details/dapps/avm/teal/opcodes/#ed25519verify) and [algosdk.tealSign](https://algorand.github.io/js-algorand-sdk/modules.html#tealSign)
+ - Added new function `tealSign` to generate `ed25519` signatures that can be verified by a teal program. See also: [ed25519verify opcode](https://developer.algorand.org/docs/get-details/dapps/avm/teal/opcodes/#ed25519verify) and [algosdk.tealSign](https://algorand.github.io/js-algorand-sdk/modules.html#tealSign). This operation is only supported for mnemonic accounts.
 
 ## [1.1.3] - 2022-04-13
 
