@@ -218,4 +218,13 @@ export default class MyAlgoConnect {
 	 * @returns Returns the data signature
 	 */
 	tealSign(data: Uint8Array | Base64, contractAddress: Address, address: Address): Promise<Uint8Array>;
+
+	/**
+	 * @async
+	 * @description Sign an arbitrary array of bytes
+	 * @param bytes Bytes to sign
+	 * @param address Signer Address
+	 * @returns Returns bytes signature
+	 */
+	signBytes(bytes: Uint8Array, address: Address): Promise<Uint8Array>;
 }
