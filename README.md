@@ -49,7 +49,7 @@ const myAlgoWallet = new MyAlgoConnect();
 
 ```js
 /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
-async function connectToMyAlgo {
+async function connectToMyAlgo() {
   try {
     const accounts = await myAlgoWallet.connect();
     const addresses = accounts.map(account => account.address);
@@ -68,7 +68,7 @@ async function connectToMyAlgo {
 
 ```js
 import algosdk from 'algosdk';
-const algodClient = new algosdk.Algodv2('', 'https://api.algoexplorer.io/', '');
+const algodClient = new algosdk.Algodv2('', 'https://node.algoexplorerapi.io/', 443);
 
 /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
 async function signTransaction (from, to, amount, suggestedParams) {
