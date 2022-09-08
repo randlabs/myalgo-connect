@@ -1,38 +1,32 @@
 name: SAST
 on: [push, workflow_dispatch]
 jobs:
-  Depcheck:
-    name: Dependency Check
+  Depcheck-SonarQube:
+    name: Source Code Analysis
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Depcheck with Maven
-        id: Maven-Depcheck
-        run: git config --global url."https://${{ secrets.GH_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/" && mvn -f .github/workflows/sast/pom.xml org.owasp:dependency-check-maven:7.1.1:check -Dformats=html -DenableExperimental
-      - name: Upload Test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: depcheck
-          path: ${{github.workspace}}/.github/workflows/sast/target
-  Sonarqube:
-    name: Sonarqube
-    runs-on: ubuntu-latest
-    needs: depcheck
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
-        with:
-            name: depcheck
-      - name: Move the report
-        run: mkdir ./reports && mv ./dependency-check-report.html ./reports/
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: OWASP Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      id: DepCheck
+      with:
+        project: 'DependencyCheck'
+        path: '.'
+        format: 'HTML'
+
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    
+    - name: Search dangerous attributes
+      run: .github/workflows/sast/dangerouslySetInnerHTML.sh
+      shell: bash
