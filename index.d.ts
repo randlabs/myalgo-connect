@@ -157,28 +157,29 @@ export interface WalletTransaction {
 	// Base64 encoding of the canonical msgpack encoding of a Transaction
 	txn: TxnStr;
 
-	// Optional authorized address used to sign the transaction when the account is rekeyed
-	authAddr?: Address;
+	// [Not Supported] Optional authorized address used to sign the transaction when the account is rekeyed
+	// authAddr?: Address;
 
-	// Multisig metadata used to sign the transaction
-	msig?: MultisigMetadata;
+	// [Not Supported] Multisig metadata used to sign the transaction
+	// msig?: MultisigMetadata;
 
 	// Optional list of addresses that must sign the transactions
 	signers?: Address[];
 
-	// Optional base64 encoding of the canonical msgpack encoding of a  SignedTxn corresponding to txn, when signers=[]
-	stxn?: SignedTxnStr;
+	// [Not Supported] Optional base64 encoding of the canonical msgpack encoding of a  SignedTxn corresponding to txn, when signers=[]
+	// stxn?: SignedTxnStr;
 
-	// Optional message explaining the reason of the transaction
-	message?: string;
+	// [Not Supported] Optional message explaining the reason of the transaction
+	// message?: string;
 
-	// Optional message explaining the reason of this group of transaction. Field only allowed in the first transaction of a group
-	groupMessage?: string;
+	// [Not Supported] Optional message explaining the reason of this group of transaction.
+	// Field only allowed in the first transaction of a group
+	// groupMessage?: string;
 }
 
 export interface SignTxnsOpts {
-	// Optional message explaining the reason of the group of transactions
-	message?: string;
+	// [Not Supported] Optional message explaining the reason of the group of transactions
+	// message?: string;
 }
 
 export interface SignTxnsError extends Error {
