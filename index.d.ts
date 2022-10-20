@@ -139,6 +139,53 @@ export type EncodedTransaction = Base64 | Uint8Array;
 
 export type AlgorandTxn = PaymentTxn | AssetTxn | AssetConfigTxn | AssetCreateTxn | DestroyAssetTxn | FreezeAssetTxn | KeyRegTxn | ApplTxn;
 
+export type TxnStr = Base64;
+export type SignedTxnStr = Base64;
+
+export interface MultisigMetadata {
+	// Multisig version
+	version: number;
+
+	// Multisig threshold value
+	threshold: number;
+
+	// Multisig Cosigners
+	addrs: Address[];
+}
+
+export interface WalletTransaction {
+	// Base64 encoding of the canonical msgpack encoding of a Transaction
+	txn: TxnStr;
+
+	// [Not Supported] Optional authorized address used to sign the transaction when the account is rekeyed
+	authAddr?: Address;
+
+	// [Not Supported] Multisig metadata used to sign the transaction
+	msig?: MultisigMetadata;
+
+	// Optional list of addresses that must sign the transactions
+	signers?: Address[];
+
+	// [Not Supported] Optional base64 encoding of the canonical msgpack encoding of a  SignedTxn corresponding to txn, when signers=[]
+	stxn?: SignedTxnStr;
+
+	// [Not Supported] Optional message explaining the reason of the transaction
+	message?: string;
+
+	// [Not Supported] Optional message explaining the reason of this group of transaction.
+	// Field only allowed in the first transaction of a group
+	groupMessage?: string;
+}
+
+export interface SignTxnsOpts {
+	// [Not Supported] Optional message explaining the reason of the group of transactions
+	message?: string;
+}
+
+export interface SignTxnsError extends Error {
+	code: number;
+	data?: any;
+}
 
 export interface SignedTx {
 	// Transaction hash
@@ -199,6 +246,15 @@ export default class MyAlgoConnect {
 	 * @returns Returns signed an array of signed transactions.
 	 */
 	signTransaction(transaction: (AlgorandTxn | EncodedTransaction)[], signOptions?: SignTransactionOptions): Promise<SignedTx[]>;
+
+	/**
+	 * @async
+	 * @description Sign a set of transactions.
+	 * @param txns A non-empty list of WalletTransaction objects.
+	 * @param signOptions Sign transactions options object.
+	 * @returns Returns an array of base64 encoding of the signed transaction, or null where the transaction was not to be signed
+	 */
+	signTxns(txns: WalletTransaction[], opts?: SignTxnsOpts): Promise<(SignedTxnStr | null)[]>;
 
 	/**
 	 * @async
