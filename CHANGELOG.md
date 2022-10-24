@@ -1,5 +1,9 @@
 # MyAlgo Connect Change log
 
+## [1.4.0] - 2022-10-24
+
+ - Added new ARC-0001 compliant function `signTxns`.
+
 ## [1.3.0] - 2022-08-24
 
 ### Added
