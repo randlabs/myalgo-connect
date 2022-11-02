@@ -166,7 +166,7 @@ export interface WalletTransaction {
 	// Optional list of addresses that must sign the transactions
 	signers?: Address[];
 
-	// [Not Supported] Optional base64 encoding of the canonical msgpack encoding of a  SignedTxn corresponding to txn, when signers=[]
+	// Optional base64 encoding of the canonical msgpack encoding of a  SignedTxn corresponding to txn, when signers=[]
 	stxn?: SignedTxnStr;
 
 	// [Not Supported] Optional message explaining the reason of the transaction
