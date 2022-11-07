@@ -1,5 +1,9 @@
 # MyAlgo Connect Change log
 
+## [1.4.1] - 2022-11-07
+
+ - Update jsdoc for `signTxns` `stxn` setting
+
 ## [1.4.0] - 2022-10-24
 
  - Added new ARC-0001 compliant function `signTxns`.
