@@ -157,7 +157,7 @@ export interface WalletTransaction {
 	// Base64 encoding of the canonical msgpack encoding of a Transaction
 	txn: TxnStr;
 
-	// [Not Supported] Optional authorized address used to sign the transaction when the account is rekeyed
+	// Optional authorized address used to sign the transaction when the account is rekeyed
 	authAddr?: Address;
 
 	// [Not Supported] Multisig metadata used to sign the transaction
