@@ -1,5 +1,9 @@
 # MyAlgo Connect Change log
 
+## [1.4.2] - 2022-11-28
+
+ - Update jsdoc for `signTxns` `authAddr` setting
+
 ## [1.4.1] - 2022-11-07
 
  - Update jsdoc for `signTxns` `stxn` setting
